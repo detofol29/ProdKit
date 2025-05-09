@@ -1,23 +1,23 @@
 @import "tailwindcss";
 
 .corSideBar{
-  background-color: #211023;
-  color: #a0ab94;
+  background-color: #040c0c;
+  color: white;
 }
 
 .roxoPrincipal{
-  color: #211023;
+  color: #040c0c;
 }
 
 .corFundoPrincipal{
-  background-color: #a0ab94;
+  background-color: #041c2b;
 }
 
 .corFundoComponentes{
-  background-color: #211023;
-  color: #a0ab94;
+  background-color: #040c0c;
+  color: white;
 }
 
 .corDosIcoes{
-  color: #a0ab94;
+  color: white;
 }
