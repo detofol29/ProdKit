@@ -4,6 +4,13 @@
     <ProjectReference Include="..\ProdKit.Domain\ProdKit.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ExtratorDeAudio\" />
+    <Folder Include="ConversorDeArquivos\" />
+    <Folder Include="Validadores\" />
+    <Folder Include="Tradutores\" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
