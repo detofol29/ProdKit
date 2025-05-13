@@ -1,0 +1,85 @@
+<div
+  class="flex flex-col text-xs mx-1 p-3 rounded-xl shadow-lg my-10 corFundoComponentes lg:h-[85vh] lg:w-[70vw]"
+>
+  <!-- H1 fixo no topo -->
+  <div>
+    <h1 class="font-extrabold text-xl lg:text-3xl">TRADUTOR</h1>
+  </div>
+
+  <!-- Conteúdo centralizado em lg -->
+  <div class="flex flex-1 flex-col lg:items-center lg:justify-center">
+    <div class="p-2 corFundoComponentes">
+      <div class="flex flex-col gap-2 sm:flex-row">
+        <!-- Coluna do texto original -->
+        <div class="flex-col mb-4 lg:w-[32vw]">
+          <label class="block mb-2 font-semibold lg:text-base"
+            >Idioma de origem</label
+          >
+          <select
+            [(ngModel)]="idiomaOrigem"
+            class="w-full p-2 lg:p-4 border rounded-md corFundoComponentes lg:text-base"
+          >
+            <option value="en">Inglês</option>
+            <option value="pt">Português</option>
+            <option value="es">Espanhol</option>
+          </select>
+          <textarea
+            [(ngModel)]="textoOriginal"
+            rows="10"
+            placeholder="Digite o texto..."
+            class="mt-2 w-full p-3 lg:p-4 border rounded-md resize-none bg-gray-200 text-black lg:text-base"
+          ></textarea>
+          <div class="flex justify-end mt-1">
+            <button
+              (click)="copiarTexto()"
+              class="bg-blue-600 hover:bg-blue-700 text-white text-sm px-3 py-1 lg:px-5 lg:py-2 rounded lg:text-base"
+              title="Copiar"
+            >
+              <i class="fas fa-copy text-xl"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Coluna do texto traduzido -->
+        <div class="flex-col mb-4 lg:w-[32vw]">
+          <label class="block mb-2 font-semibold lg:text-base"
+            >Idioma de destino</label
+          >
+          <select
+            [(ngModel)]="idiomaDestino"
+            class="w-full p-2 lg:p-4 border rounded-md corFundoComponentes lg:text-base"
+          >
+            <option value="en">Inglês</option>
+            <option value="pt">Português</option>
+            <option value="es">Espanhol</option>
+          </select>
+          <textarea
+            [value]="textoTraduzido"
+            rows="10"
+            placeholder="Tradução..."
+            readonly
+            class="mt-2 w-full p-3 lg:p-4 border rounded-md bg-gray-200 text-black resize-none lg:text-base"
+          ></textarea>
+          <div class="flex justify-end mt-1">
+            <button
+              (click)="copiarTexto()"
+              class="bg-blue-600 hover:bg-blue-700 text-white text-sm px-3 py-1 lg:px-5 lg:py-2 rounded lg:text-base"
+              title="Copiar"
+            >
+              <i class="fas fa-copy text-xl"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-5 text-center">
+    <button
+      (click)="traduzir()"
+      class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 lg:py-3 lg:px-8 rounded-md transition lg:text-lg"
+    >
+      Traduzir
+    </button>
+  </div>
+</div>

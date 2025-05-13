@@ -1,0 +1,13 @@
+<main class="flex flex-col md:flex-row w-full h-screen">
+    <section class="w-full md:hidden">
+      <app-nav-bar-mobile></app-nav-bar-mobile>
+    </section>
+
+    <section id="sideBar" class="hidden md:block">
+      <app-sidebar></app-sidebar>
+    </section>
+
+    <section class="flex items-center justify-center text-center w-full corFundoPrincipal sm:h-screen">
+        <router-outlet></router-outlet>
+    </section>
+</main>
