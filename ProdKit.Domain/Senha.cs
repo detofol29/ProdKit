@@ -17,7 +17,7 @@ namespace ProdKit.Domain
 
         public Senha(int tamanho, bool incluirCaracteresEspeciais, bool incluirNumeros, bool incluirLetrasMaiusculas, bool incluirLetrasMinusculas)
         {
-            if (tamanho < 6 || tamanho > 128)
+            if (tamanho < 1 || tamanho > 128)
                 throw new ArgumentException("O tamanho da senha deve estar entre 6 e 128 caracteres.");
 
             if (!incluirCaracteresEspeciais && !incluirNumeros && !incluirLetrasMaiusculas && !incluirLetrasMinusculas)
