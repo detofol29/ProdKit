@@ -18,8 +18,16 @@ namespace ProdKit.API.Controllers
         [HttpPost("gerar")]
         public IActionResult GerarSenha([FromBody] GerarSenhaRequest request)
         {
-            var senhaGerada = _senhaAppService.GerarSenha(request);
-            return Ok(senhaGerada);
+            try
+            {
+                var senhaGerada = _senhaAppService.GerarSenha(request);
+                return Ok(senhaGerada);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
     }
 }
