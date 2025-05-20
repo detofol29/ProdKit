@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { SenhaService, GerarSenhaRequest } from '../../services/senha.service';
+import { SenhaService, GerarSenhaRequest, Resposta } from '../../services/senha.service';
 
 @Component({
   selector: 'app-gerador',
@@ -49,13 +49,13 @@ export class GeradorComponent {
     };
 
     this.senhaService.gerarSenha(request).subscribe({
-      next: (senha: string) => {
-        this.senhaGerada = senha;
-        alert(`Senha gerada: ${senha}`);
+      next: (res: Resposta) => {
+        this.senhaGerada = res.senha ?? "";
+        //alert(`Senha gerada: ${res.senha}`);
       },
       error: (err) => {
         console.error('Erro ao gerar senha', err);
-        alert('Erro ao gerar senha');
+        alert(err.error.erro);
       }
     });
 

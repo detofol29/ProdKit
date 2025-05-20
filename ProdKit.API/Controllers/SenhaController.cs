@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProdKit.Application.DTOs;
 using ProdKit.Application.Inferfaces;
+using ProdKit.Domain;
 
 namespace ProdKit.API.Controllers
 {
@@ -21,11 +22,11 @@ namespace ProdKit.API.Controllers
             try
             {
                 var senhaGerada = _senhaAppService.GerarSenha(request);
-                return Ok(senhaGerada);
+                return Ok(new { Senha = senhaGerada });
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { Erro = ex.Message });
             }
             
         }

@@ -10,6 +10,11 @@ export interface GerarSenhaRequest {
   IncluirLetrasMinusculas: boolean;
 }
 
+export interface Resposta {
+  senha?: string;
+  erro?: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -18,7 +23,8 @@ export class SenhaService {
 
   constructor(private http: HttpClient) {}
 
+
   gerarSenha(request: GerarSenhaRequest) {
-    return this.http.post<string>(`${this.apiUrl}/gerar`, request);
+    return this.http.post<Resposta>(`${this.apiUrl}/gerar`, request);
   }
 }
