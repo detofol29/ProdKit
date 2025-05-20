@@ -32,13 +32,6 @@ export class GeradorComponent {
   }
 
   aoClicarEmGerar(){
-    // alert(
-    //   `Valor: ${this.value}
-    //   Letras maiúsculas: ${this.letrasMaiusculas}
-    //   Letras minúsculas: ${this.letrasMinusculas}
-    //   Números: ${this.numeros}
-    //   Caracteres especiais: ${this.caracteresEspeciais}`
-    // );
 
     const request: GerarSenhaRequest = {
       Tamanho: this.value,
@@ -49,14 +42,16 @@ export class GeradorComponent {
     };
 
     this.senhaService.gerarSenha(request).subscribe({
+
       next: (res: Resposta) => {
         this.senhaGerada = res.senha ?? "";
-        //alert(`Senha gerada: ${res.senha}`);
       },
+
       error: (err) => {
         console.error('Erro ao gerar senha', err);
         alert(err.error.erro);
       }
+
     });
 
   }

@@ -19,12 +19,13 @@ export interface Resposta {
   providedIn: 'root'
 })
 export class SenhaService {
-  private apiUrl = `${environment.apiUrl}/senha`;
+
+  private caminhoGerarSenha = '/senha/gerar';
+  private apiUrl = environment.apiUrl + this.caminhoGerarSenha;
 
   constructor(private http: HttpClient) {}
 
-
   gerarSenha(request: GerarSenhaRequest) {
-    return this.http.post<Resposta>(`${this.apiUrl}/gerar`, request);
+    return this.http.post<Resposta>(this.apiUrl, request);
   }
 }
