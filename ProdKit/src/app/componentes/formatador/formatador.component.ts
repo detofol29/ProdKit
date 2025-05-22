@@ -1,20 +1,25 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule, HttpClient, HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-formatador',
-  imports: [],
+  imports: [CommonModule, RouterModule, FormsModule, HttpClientModule],
   templateUrl: './formatador.component.html',
   styleUrl: './formatador.component.css'
 })
 export class FormatadorComponent {
 
-  formatJson(content: string): string {
-    try {
+  TipoArquivo: string = 'json';
+  textoFormatado: string = '';
+  textoOriginal: string = '';
+  formatJson(): void {
+      let content = this.textoOriginal;
       const obj = JSON.parse(content);
-      return JSON.stringify(obj, null, 2); // 2 espaços de indentação
-    } catch (e) {
-      return 'JSON inválido';
-    }
+      let jsonFormatado = JSON.stringify(obj, null, 2); // 2 espaços de indentação
+      this.textoFormatado = jsonFormatado;
   }
 
 }

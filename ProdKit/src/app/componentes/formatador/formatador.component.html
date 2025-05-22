@@ -8,12 +8,23 @@
 
   <!-- Conteúdo centralizado em lg -->
   <div class="flex flex-2 flex-row gap-4 my-2 mx-1 g:items-center lg:justify-center">
-    <textarea name="" id="" class="bg-white h-[60vh] w-full rounded-lg"></textarea>
-    <textarea name="" id="" class="bg-white h-[60vh] w-full rounded-lg"></textarea>
+    <textarea id="" [(ngModel)]="textoOriginal" class="bg-white h-[60vh] w-full text-black rounded-lg"></textarea>
+    <textarea id="" [(ngModel)]="textoFormatado" class="bg-white text-black h-[60vh] w-full rounded-lg"></textarea>
+  </div>
+
+  <div class="mb-2">
+    <select
+            [(ngModel)]="TipoArquivo"
+            class="w-full p-2 lg:p-4 border rounded-md corFundoComponentes lg:text-base"
+          >
+            <option value="json">JSON</option>
+            <option value="xml">XML</option>
+      </select>
   </div>
 
   <div class="mb-5 text-center">
     <button
+      (click)="formatJson()"
       class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 lg:py-3 lg:px-8 rounded-md transition lg:text-lg"
     >
       Formatar
