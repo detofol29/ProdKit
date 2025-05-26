@@ -7,11 +7,26 @@
   </div>
 
   <!-- Conteúdo centralizado em lg -->
-  <div class="flex flex-2 flex-row gap-4 my-2 mx-1 g:items-center lg:justify-center">
-    <textarea id="" [(ngModel)]="textoOriginal" class="bg-white h-[60vh] w-full text-black rounded-lg"></textarea>
-    <textarea id="" [(ngModel)]="textoFormatado" class="bg-white text-black h-[60vh] w-full rounded-lg"></textarea>
+  <div class="flex flex-2 flex-row gap-4 my-4 mx-1 g:items-center lg:justify-center">
+    <div>
+        <label for="">Texto Original</label>
+        <textarea id="" [(ngModel)]="textoOriginal" class="bg-white h-[60vh] w-full text-black rounded-lg"></textarea>
+    </div>
+    <div>
+        <label for="">Texto Formatado</label>
+        <textarea id="" [(ngModel)]="textoFormatado" class="bg-white text-black h-[60vh] w-full rounded-lg"></textarea>
+    </div>
+    
   </div>
-
+  <div class="my-2">
+    <button
+        (click)="copiarTextoFormatado()"
+        class="bg-blue-600 hover:bg-blue-700 text-white text-sm px-3 py-1 lg:px-5 lg:py-2 rounded lg:text-base"
+        title="Copiar">
+        <i class="fas fa-copy text-xl"></i>
+    </button>
+  </div>
+  
   <div class="mb-2">
     <select
             [(ngModel)]="TipoArquivo"
@@ -24,7 +39,7 @@
 
   <div class="mb-5 text-center">
     <button
-      (click)="formatJson()"
+      (click)="formatar()"
       class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 lg:py-3 lg:px-8 rounded-md transition lg:text-lg"
     >
       Formatar
