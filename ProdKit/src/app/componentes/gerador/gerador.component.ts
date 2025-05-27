@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { SenhaService, GerarSenhaRequest, Resposta } from '../../services/senha.service';
+import { SenhaService, GerarSenhaRequest, Resposta } from '../../services/senha/senha.service';
 
 @Component({
   selector: 'app-gerador',

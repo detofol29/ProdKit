@@ -6,6 +6,7 @@ import { HomeComponent } from './componentes/home/home.component';
 import { NavBarMobileComponent } from './componentes/nav-bar-mobile/nav-bar-mobile.component';
 import { GeradorComponent } from './componentes/gerador/gerador.component';
 import { FormatadorComponent } from './componentes/formatador/formatador.component';
+import { ValidadorComponent } from './componentes/validador/validador.component';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,8 @@ import { FormatadorComponent } from './componentes/formatador/formatador.compone
     HomeComponent,
     NavBarMobileComponent,
     GeradorComponent,
-    FormatadorComponent
+    FormatadorComponent,
+    ValidadorComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
