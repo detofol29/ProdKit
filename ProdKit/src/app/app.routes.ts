@@ -4,6 +4,7 @@ import { HomeComponent } from './componentes/home/home.component';
 import { GeradorComponent } from './componentes/gerador/gerador.component';
 import { FormatadorComponent } from './componentes/formatador/formatador.component';
 import { ValidadorComponent } from './componentes/validador/validador.component';
+import { ExtratorComponent } from './componentes/extrator/extrator.component';
 
 
 export const routes: Routes = [
@@ -13,5 +14,6 @@ export const routes: Routes = [
   { path: 'gerador', component: GeradorComponent },
   { path: 'formatador', component: FormatadorComponent },
   { path: 'validador', component: ValidadorComponent },
+  { path: 'extrator', component: ExtratorComponent },
   { path: '**', redirectTo: 'home' }
 ];

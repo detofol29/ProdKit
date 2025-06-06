@@ -1,0 +1,88 @@
+<div
+  class="flex flex-col text-xs mx-1 p-3 rounded-xl shadow-lg my-10 corFundoComponentes lg:h-[85vh] lg:w-[70vw]"
+>
+  <!-- H1 fixo no topo -->
+  <div>
+    <h1 class="font-extrabold text-xl lg:text-3xl">EXTRATOR</h1>
+  </div>
+
+  <!-- Conteúdo centralizado em lg -->
+  <div class="flex flex-2 flex-col gap-4 my-4 mx-1 g:items-center lg:justify-center">
+
+    <h3 class="text-3xl font-bold dark:text-white">Selecione um Arquivo de Video:</h3>
+
+    <div class="flex items-center justify-center w-full">
+        <label for="dropzone-file" class="relative flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                <button (click)="removerVideo($event)" class="absolute top-2 right-2 text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-600" *ngIf="videoCarregado" title="Remover vídeo">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+
+                <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16" *ngIf="!videoCarregado">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+                </svg>
+
+                <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" *ngIf="videoCarregado">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1Zm0 0-4 4m5 0H4m1 0 4-4m1 4 4-4m-4 7v6l4-3-4-3Z"/>
+                </svg>
+
+                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400" *ngIf="!videoCarregado"><span class="font-semibold">Clique para carregar</span> ou arraste e solte</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Formato: MP4</p>
+                <p class="text-sm mt-2 text-blue-600 dark:text-blue-300 font-medium" *ngIf="videoCarregado">
+                  Arquivo selecionado: {{ videoCarregado.name }}
+                </p>
+            </div>
+            <input id="dropzone-file" type="file" class="hidden" accept="video/mp4" (change)="aoSelecionarArquivo($event)"/>
+        </label>
+    </div>
+
+    <!-- <video class="w-96" controls *ngIf="videoUrl">
+      <source [src]="videoUrl" type="video/mp4">
+      Seu navegador não suporta a tag de vídeo.
+    </video> -->
+
+    <button
+      (click)="ExtrairAudio()"
+      class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 lg:py-3 lg:px-8 rounded-md transition lg:text-lg"
+    >
+      Extrair Áudio
+    </button>
+
+      <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+        <div class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style="width: 85%"> 85%</div>
+      </div>
+
+      <div class="flex flex-row gap-2 items-center justify-center">
+            <div class="max-w-md mt-4 p-4 bg-white dark:bg-blue-600 hover:bg-blue-700 rounded-lg shadow">
+              <h2 class="text-lg font-semibold text-gray-800 dark:text-white mb-2">Reprodutor de Áudio</h2>
+              <audio controls class="w-full">
+                <source src="caminho/do/seu/audio.mp3" type="audio/mp3" />
+                Seu navegador não suporta o elemento de áudio.
+              </audio>
+            </div>
+
+            <button
+              class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                fill="none"
+                class="w-5 h-5 mr-2 -ml-1"
+              >
+                <path
+                  d="M12 4v12m8-8l-8 8-8-8"
+                  stroke-width="2"
+                  stroke-linejoin="round"
+                  stroke-linecap="round"
+                ></path>
+              </svg>
+              Download
+            </button>
+      </div>
+
+  </div>
+</div>
