@@ -24,16 +24,14 @@ namespace ProdKit.API.Controllers
         {
             try
             {
-                //var audioBytes = _extratorService.ExtrarAudio(file);
-                var audioBytes =  await _extratorService.ConverterMp4ParaMp3Async(file);
+                var audioBytes = _extratorService.ExtrarAudio(file);
+                //var audioBytes =  await _extratorService.ConverterMp4ParaMp3Async(file);
                 return File(audioBytes, "audio/mpeg", "audio.mp3");
             }
             catch (Exception ex)
             {
                 return BadRequest(new { Erro = ex.Message });
             }
-
-            
         }
     }
 }

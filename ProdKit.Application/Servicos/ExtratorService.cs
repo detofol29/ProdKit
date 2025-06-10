@@ -13,16 +13,19 @@ namespace ProdKit.Application.Servicos
     {
         public byte[] ExtrarAudio(IFormFile file)
         {
-            string caminhoArquivo = @"C:\Projetos\ProdKit\ProdKit\ArquivosTeste\somwhatsapp.mp3.mp3";
+            //string caminhoArquivo = @"C:\Projetos\ProdKit\ProdKit\ArquivosTeste\somwhatsapp.mp3.mp3";
+            string nomeArquivo = "somwhatsapp.mp3.mp3";
+            string caminhoProjeto = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.FullName;
+            string caminhoCompleto = Path.Combine(caminhoProjeto, "ArquivosTeste", nomeArquivo).Replace("\\ProdKit.API\\bin", "");
 
             // Verifica se o arquivo existe
-            if (!File.Exists(caminhoArquivo))
+            if (!File.Exists(caminhoCompleto))
             {
                 throw new FileNotFoundException("Arquivo de áudio não encontrado no diretório especificado.");
             }
 
             // Lê todos os bytes do arquivo MP3
-            byte[] arquivoBytes = File.ReadAllBytes(caminhoArquivo);
+            byte[] arquivoBytes = File.ReadAllBytes(caminhoCompleto);
 
             return arquivoBytes;
         }
