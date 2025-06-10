@@ -51,3 +51,5 @@ dist/
 # .NET
 **/bin/
 **/obj/
+/ffmpeg
+ffmpeg/
