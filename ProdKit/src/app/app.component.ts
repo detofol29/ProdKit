@@ -8,6 +8,7 @@ import { GeradorComponent } from './componentes/gerador/gerador.component';
 import { FormatadorComponent } from './componentes/formatador/formatador.component';
 import { ValidadorComponent } from './componentes/validador/validador.component';
 import { ExtratorComponent } from './componentes/extrator/extrator.component';
+import { ConversorComponent } from './componentes/conversor/conversor.component';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +21,8 @@ import { ExtratorComponent } from './componentes/extrator/extrator.component';
     GeradorComponent,
     FormatadorComponent,
     ValidadorComponent,
-    ExtratorComponent
+    ExtratorComponent,
+    ConversorComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
