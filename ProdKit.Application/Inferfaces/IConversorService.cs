@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace ProdKit.Application.Inferfaces
 {
-    internal interface IConversorService
+    public interface IConversorService
     {
+        void ConverterArquivo();
     }
 }
