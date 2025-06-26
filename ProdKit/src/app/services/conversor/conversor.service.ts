@@ -2,30 +2,28 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 
-export interface ExtratorRequest {
-  video: File;
-}
 
-export interface Resposta {
-  audio?: File;
-  erro?: string;
+export interface ConversorRequest {
+  arquivo: File;
+  tipoConversao: string;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class ExtratorService {
+export class ConversorService {
 
-  private caminhoExtrairAudio = '/extrator/extrair';
+  private caminhoExtrairAudio = '/conversor/converterArquivo';
   private apiUrl = environment.apiUrl + this.caminhoExtrairAudio;
 
   constructor(private http: HttpClient) {}
 
-  extrairAudio(request: ExtratorRequest) {
+  converterArquivo(request: ConversorRequest) {
     debugger;
     const formData = new FormData();
-    formData.append('file', request.video);
+    formData.append('arquivo', request.arquivo);
+    formData.append('tipoConversao', request.tipoConversao);
 
     return this.http.post(this.apiUrl, formData, {
       responseType: 'blob'

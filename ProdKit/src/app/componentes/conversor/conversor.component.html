@@ -14,7 +14,7 @@
       <label for="dropzone-file" [class.h-64]="arquivoCarregado === null" [class.h-40]="arquivoCarregado !== null"
         class="relative flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
         <div class="flex flex-col items-center justify-center pt-5 pb-6">
-          <button (click)="removerVideo($event)"
+          <button (click)="removerArquivo()"
             class="absolute top-2 right-2 text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-600"
             *ngIf="arquivoCarregado" title="Remover vídeo">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
@@ -38,22 +38,46 @@
 
           <p class="mb-2 text-sm text-gray-500 dark:text-gray-400" *ngIf="!arquivoCarregado"><span
               class="font-semibold">Clique para carregar</span> ou arraste e solte</p>
-          <p class="text-xs text-gray-500 dark:text-gray-400">Formato: MP4</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400"></p>
           <p class="text-sm mt-2 text-blue-600 dark:text-blue-300 font-medium" *ngIf="arquivoCarregado">
             Arquivo selecionado: {{ arquivoCarregado.name }}
           </p>
         </div>
-        <input id="dropzone-file" type="file" class="hidden" accept="video/mp4"
-          (change)="aoSelecionarArquivo($event)" />
+        <input
+          id="dropzone-file"
+          type="file"
+          class="hidden"
+          [accept]="tipoAceito"
+          (change)="aoSelecionarArquivo($event)"
+        />
       </label>
     </div>
+
+    <form class="max-w-sm mx-auto">
+      <label for="conversao" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+        Selecione uma conversão:
+      </label>
+
+      <select
+        id="conversao"
+        name="conversao"
+        [(ngModel)]="conversaoSelecionada"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+              focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5
+              dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+              dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <option *ngFor="let tipo of TIPOS_CONVERSAO" [value]="tipo.value">
+          {{ tipo.label }}
+        </option>
+      </select>
+    </form>
 
     <button (click)="ConverterArquivo()" *ngIf="!arquivoConvertido"
       class="bg-blue-600 hover:bg-blue-700 text-white lg:mx-auto font-semibold py-2 px-6 lg:py-3 lg:px-8 rounded-md transition lg:text-lg lg:w-[50%]">
       Converter Arquivo
     </button>
 
-    <div *ngIf="audioUrl" class="flex flex-col gap-3 lg:gap-6 items-center justify-center">
+    <!-- <div *ngIf="audioUrl" class="flex flex-col gap-3 lg:gap-6 items-center justify-center">
 
       <button (click)="baixarArquivo()"
         class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-3xl shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out">
@@ -63,6 +87,6 @@
         </svg>
         Download
       </button>
-    </div>
+    </div> -->
   </div>
 </div>

@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient, HttpParams } from '@angular/common/http';
-import { ExtratorService } from '../../services/extrator/extrator.service';
+import { ConversorService } from '../../services/conversor/conversor.service';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-conversor',
@@ -14,83 +15,76 @@ import { ExtratorService } from '../../services/extrator/extrator.service';
   styleUrl: './conversor.component.css'
 })
 export class ConversorComponent {
-  constructor(private extratorService: ExtratorService) {}
+
+  constructor(private conversorService: ConversorService) {}
+
+  PdfParaWord = { label: 'PDF para Word', value: 'PdfToWord' };
+  WordParaPdf = { label: 'Word para PDF', value: 'WordToPdf' };
+
+  readonly TIPOS_CONVERSAO = [
+    this.PdfParaWord,
+    this.WordParaPdf
+  ];
 
   arquivoCarregado: File | null = null;
-  videoUrl: string | null = null;
-  arquivoConvertido: File | null = null;
-  audioUrl: string | null = null;
-  carregamentoPorcentagem: string | null = null;
-  private intervalo: any;
+  arquivoConvertido: string | null = null;
+  conversaoSelecionada = this.TIPOS_CONVERSAO[0].value;
 
   aoSelecionarArquivo(event: Event): void {
-    const formatoMp4 = 'video/mp4';
-    const mensagemFormatoInvalido = 'Tipo de arquivo inválido. Apenas MP4 é permitido.';
-    const mensagemArquivoSelecionado = 'Arquivo selecionado: ';
-
     const input = event.target as HTMLInputElement;
-
     if (!input.files?.length) {
       return;
     }
 
     const file = input.files[0];
+    const tipoConversao = this.conversaoSelecionada;
 
-    if (file.type !== formatoMp4) {
-      alert(mensagemFormatoInvalido);
+    const formatosPermitidos: { [key: string]: string[] } = {
+      PdfToWord: ['application/pdf'],
+      WordToPdf: [
+        'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+      ]
+    };
+
+    const mensagensErro: { [key: string]: string } = {
+      PdfToWord: 'Tipo de arquivo inválido. Apenas arquivos PDF são permitidos.',
+      WordToPdf: 'Tipo de arquivo inválido. Apenas arquivos .doc ou .docx são permitidos.'
+    };
+
+    const tiposValidos = formatosPermitidos[tipoConversao] || [];
+
+    if (!tiposValidos.includes(file.type)) {
+      alert(mensagensErro[tipoConversao] || 'Tipo de arquivo inválido.');
       return;
     }
 
-    alert(mensagemArquivoSelecionado + file.name);
+    alert('Arquivo selecionado: ' + file.name);
 
     this.arquivoCarregado = file;
-    this.videoUrl = URL.createObjectURL(file);
   }
 
   ConverterArquivo(): void {
-    const formatoMp3 = 'audio.mp3';
-    this.iniciarCarregamento();
-    this.extratorService.extrairAudio({ video: this.arquivoCarregado as File })
+    this.conversorService.converterArquivo({ arquivo: this.arquivoCarregado as File, tipoConversao: this.conversaoSelecionada })
     .subscribe(blob => {
       debugger;
-      const mp3File = new File([blob], formatoMp3, { type: 'audio/mpeg' });
-      this.audioUrl = URL.createObjectURL(mp3File);
-      this.arquivoConvertido = mp3File;
+      this.arquivoConvertido = URL.createObjectURL(blob);
     });
   }
 
-  removerVideo(event: Event): void {
-    event.stopPropagation(); // Evita abrir o seletor de arquivos ao clicar no "X", nn funcionando
+  get tipoAceito(): string {
+    switch (this.conversaoSelecionada) {
+      case 'PdfToWord':
+        return '.pdf';
+      case 'WordToPdf':
+        return '.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+      default:
+        return '*/*';
+    }
+  }
+
+  removerArquivo(): void {
     this.arquivoCarregado = null;
-    this.videoUrl = null;
-    this.arquivoConvertido = null;
-    this.audioUrl = null;
   }
 
-  baixarArquivo(): void {
-    if (!this.arquivoConvertido) return;
-
-    const a = document.createElement('a');
-    a.href = this.audioUrl as string;
-    a.download = this.arquivoConvertido.name || 'audioExtraido.mp3';
-    a.click();
-    URL.revokeObjectURL(this.audioUrl as string); // libera a memória usada pela URL
-  }
-
-  iniciarCarregamento() {
-    let progresso = 0;
-    this.carregamentoPorcentagem = '0%';
-
-    // Limpa qualquer intervalo anterior
-    clearInterval(this.intervalo);
-
-    this.intervalo = setInterval(() => {
-      if (progresso >= 100) {
-        clearInterval(this.intervalo);
-      } else {
-        progresso++;
-        this.carregamentoPorcentagem = `${progresso}%`;
-      }
-    }, 50); // 100% / 50ms = 5s
-  }
 }
