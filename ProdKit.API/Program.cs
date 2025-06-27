@@ -26,6 +26,7 @@ builder.Services.AddCors(options =>
 // Injeção de dependência
 builder.Services.AddScoped<ISenhaAppService, SenhaAppService>();
 builder.Services.AddScoped<IExtratorService, ExtratorService>();
+builder.Services.AddScoped<IConversorService, ConversorService>();
 
 builder.Services.AddControllers();
 

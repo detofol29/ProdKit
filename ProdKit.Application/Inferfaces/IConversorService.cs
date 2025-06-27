@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using ProdKit.Domain.Enumeradores;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +10,6 @@ namespace ProdKit.Application.Inferfaces
 {
     public interface IConversorService
     {
-        void ConverterArquivo();
+        Task<byte[]> ConverterArquivo(IFormFile file, TipoDeConversao tipoDeConversao);
     }
 }

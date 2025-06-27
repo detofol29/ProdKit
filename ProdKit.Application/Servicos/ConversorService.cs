@@ -1,17 +1,52 @@
-﻿using ProdKit.Application.Inferfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Aspose.Pdf;
+using Microsoft.AspNetCore.Http;
+using ProdKit.Application.Inferfaces;
+using ProdKit.Domain.Enumeradores;
 
 namespace ProdKit.Application.Servicos
 {
     public class ConversorService : IConversorService
     {
-        public void ConverterArquivo()
+        const string mensagemTipoDeCoversaoIvalida = "Tipo de conversão inválido.";
+
+        public async Task<byte[]> ConverterArquivo(IFormFile file, TipoDeConversao tipoDeConversao)
         {
-            return;
+            using var inputStream = file.OpenReadStream();
+            using var memoryStream = new MemoryStream();
+
+            if (tipoDeConversao == TipoDeConversao.PdfToWord)
+                ConverterPdfParaWord(inputStream, memoryStream);
+
+            else if (tipoDeConversao == TipoDeConversao.WordToPdf)
+                return ConverterWordParaPdf(inputStream, memoryStream);
+
+            else
+                throw new Exception(mensagemTipoDeCoversaoIvalida);
+
+            return memoryStream.ToArray();
+        }
+
+        private void ConverterPdfParaWord(Stream inputStream, MemoryStream memoryStream)
+        {
+            var pdfDoc = new Document(inputStream);
+
+            var options = new DocSaveOptions
+            {
+                Format = DocSaveOptions.DocFormat.DocX
+            };
+
+            pdfDoc.Save(memoryStream, options);
+        }
+
+        private byte[] ConverterWordParaPdf(Stream inputStream, MemoryStream memoryStream)
+        {
+            using var outputStream = new MemoryStream();
+
+            var documentoWord = new Aspose.Words.Document(inputStream);
+
+            documentoWord.Save(outputStream, Aspose.Words.SaveFormat.Pdf);
+
+            return outputStream.ToArray();
         }
     }
 }

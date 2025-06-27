@@ -22,8 +22,8 @@ export class ConversorService {
   converterArquivo(request: ConversorRequest) {
     debugger;
     const formData = new FormData();
-    formData.append('arquivo', request.arquivo);
-    formData.append('tipoConversao', request.tipoConversao);
+    formData.append('file', request.arquivo); // <-- nome esperado no backend
+    formData.append('tipoDeConversao', request.tipoConversao);
 
     return this.http.post(this.apiUrl, formData, {
       responseType: 'blob'
