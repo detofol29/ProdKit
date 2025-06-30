@@ -10,7 +10,6 @@ namespace ProdKit.Application.Inferfaces
 {
     public interface IExtratorService
     {
-        byte[] ExtrarAudio(IFormFile file);
-        Task<byte[]> ConverterMp4ParaMp3Async(IFormFile file);
+        Task<byte[]> ExtrarAudio(IFormFile file);
     }
 }

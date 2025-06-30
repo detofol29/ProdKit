@@ -1,69 +1,64 @@
 ﻿using Microsoft.AspNetCore.Http;
 using ProdKit.Application.Inferfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
+using System.Text.Json;
 using Xabe.FFmpeg;
 
 namespace ProdKit.Application.Servicos
 {
     public class ExtratorService : IExtratorService
     {
-        public byte[] ExtrarAudio(IFormFile file)
+        const string MensagemArquivoInvalido = "Arquivo inválido";
+        const string FormatoMp4 = ".mp4";
+        const string FormatoMp3 = ".mp3";
+        const string PastaFfmpeg = "ffmpeg";
+        const string ExecutavelFfmpeg = "ffmpeg.exe";
+        const string MensagemFfmpegNaoEncontrado = "FFmpeg não encontrado!";
+        const string MensagemErroNaConversao = "Erro na conversão com FFmpeg: ";
+
+        public async Task<byte[]> ExtrarAudio(IFormFile file)
         {
-            //string caminhoArquivo = @"C:\Projetos\ProdKit\ProdKit\ArquivosTeste\somwhatsapp.mp3.mp3";
-            string nomeArquivo = "somwhatsapp.mp3.mp3";
-            string caminhoProjeto = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.FullName;
-            string caminhoCompleto = Path.Combine(caminhoProjeto, "ArquivosTeste", nomeArquivo).Replace("\\ProdKit.API\\bin", "");
+            if (file == null || file.Length == decimal.Zero)
+                throw new Exception(MensagemArquivoInvalido);
 
-            // Verifica se o arquivo existe
-            if (!File.Exists(caminhoCompleto))
-            {
-                throw new FileNotFoundException("Arquivo de áudio não encontrado no diretório especificado.");
-            }
+            var tempMp4 = Path.Combine(Path.GetTempPath(), Guid.NewGuid() + FormatoMp4);
+            var tempMp3 = Path.ChangeExtension(tempMp4, FormatoMp3);
 
-            // Lê todos os bytes do arquivo MP3
-            byte[] arquivoBytes = File.ReadAllBytes(caminhoCompleto);
-
-            return arquivoBytes;
-        }
-
-        public async Task<byte[]> ConverterMp4ParaMp3Async(IFormFile file)
-        {
-            if (file == null || file.Length == 0)
-                throw new ArgumentException("Arquivo inválido");
-
-            // Caminho temporário para salvar o MP4
-            var tempMp4 = Path.Combine(Path.GetTempPath(), Guid.NewGuid() + ".mp4");
-            var tempMp3 = Path.ChangeExtension(tempMp4, ".mp3");
-
-            // Salva o arquivo MP4 no disco
-            using (var stream = new FileStream(tempMp4, FileMode.Create))
+            await using (var stream = new FileStream(tempMp4, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
 
-            // Define a pasta "ffmpeg" na raiz do projeto como local dos executáveis
-            var pastaFFmpeg = Path.Combine(Directory.GetCurrentDirectory(), "ffmpeg");
-            FFmpeg.SetExecutablesPath(pastaFFmpeg);
+            var ffmpegPath = Path.Combine(Directory.GetCurrentDirectory(), PastaFfmpeg, ExecutavelFfmpeg);
 
-            // Cria a conversão
-            var conversao = await FFmpeg.Conversions.FromSnippet.ExtractAudio(tempMp4, tempMp3);
+            if (!File.Exists(ffmpegPath))
+                throw new FileNotFoundException(MensagemFfmpegNaoEncontrado);
 
-            // Executa a conversão
-            await conversao.Start();
+            var startInfo = new ProcessStartInfo
+            {
+                FileName = ffmpegPath,
+                Arguments = $"-i \"{tempMp4}\" -vn -ar 44100 -ac 2 -b:a 192k \"{tempMp3}\" -y",
+                RedirectStandardError = true,
+                RedirectStandardOutput = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
 
-            // Lê o arquivo MP3 convertido
-            byte[] mp3Bytes = await File.ReadAllBytesAsync(tempMp3);
+            using var process = Process.Start(startInfo);
 
-            // Limpa os arquivos temporários
+            // Captura mensagens de erro para debug
+            string ffmpegErrors = await process.StandardError.ReadToEndAsync();
+            await process.WaitForExitAsync();
+
+            if (process.ExitCode != 0)
+                throw new Exception(MensagemErroNaConversao + ffmpegErrors);
+
+            var mp3Bytes = await File.ReadAllBytesAsync(tempMp3);
+
             File.Delete(tempMp4);
             File.Delete(tempMp3);
 
             return mp3Bytes;
         }
-
     }
 }
