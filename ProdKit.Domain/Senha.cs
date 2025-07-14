@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace ProdKit.Domain
+﻿namespace ProdKit.Domain
 {
     public class Senha
     {
@@ -11,12 +9,11 @@ namespace ProdKit.Domain
         public bool IncluirLetrasMinusculas { get; }
         public int TamanhoMinimo { get; }
 
-        private static readonly string LetrasMaiusculas = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        private static readonly string LetrasMinusculas = "abcdefghijklmnopqrstuvwxyz";
-        private static readonly string Numeros = "0123456789";
-        private static readonly string Especiais = "!@#$%&*()-_=+";
-
-        public Senha(int tamanho, bool incluirCaracteresEspeciais, bool incluirNumeros, bool incluirLetrasMaiusculas, bool incluirLetrasMinusculas)
+        public Senha(int tamanho,
+            bool incluirCaracteresEspeciais,
+            bool incluirNumeros,
+            bool incluirLetrasMaiusculas,
+            bool incluirLetrasMinusculas)
         {
             if (tamanho < 1 || tamanho > 100)
                 throw new Exception("O tamanho da senha deve estar entre 1 e 100 caracteres.");
@@ -44,45 +41,6 @@ namespace ProdKit.Domain
             if (IncluirLetrasMinusculas) tamanhoMinimo ++;
 
             return tamanhoMinimo;
-        }
-
-        public string Gerar()
-        {
-            var random = new Random();
-            var senha = new List<char>();
-            var conjuntoGeral = new List<char>();
-
-            // Adiciona pelo menos um de cada tipo selecionado
-            if (IncluirLetrasMaiusculas)
-            {
-                senha.Add(LetrasMaiusculas[random.Next(LetrasMaiusculas.Length)]);
-                conjuntoGeral.AddRange(LetrasMaiusculas);
-            }
-
-            if (IncluirLetrasMinusculas)
-            {
-                senha.Add(LetrasMinusculas[random.Next(LetrasMinusculas.Length)]);
-                conjuntoGeral.AddRange(LetrasMinusculas);
-            }
-
-            if (IncluirNumeros)
-            {
-                senha.Add(Numeros[random.Next(Numeros.Length)]);
-                conjuntoGeral.AddRange(Numeros);
-            }
-
-            if (IncluirCaracteresEspeciais)
-            {
-                senha.Add(Especiais[random.Next(Especiais.Length)]);
-                conjuntoGeral.AddRange(Especiais);
-            }
-
-            while (senha.Count < Tamanho)
-            {
-                senha.Add(conjuntoGeral[random.Next(conjuntoGeral.Count)]);
-            }
-
-            return new string(senha.OrderBy(_ => random.Next()).ToArray());
         }
     }
 }
