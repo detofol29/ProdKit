@@ -1,11 +1,6 @@
 ﻿using ProdKit.Application.DTOs;
 using ProdKit.Application.Inferfaces;
 using ProdKit.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProdKit.Application.Servicos
 {
@@ -30,13 +25,12 @@ namespace ProdKit.Application.Servicos
             return Gerar(senha);
         }
 
-        public string Gerar(Senha senha)
+        private static string Gerar(Senha senha)
         {
             var random = new Random();
             var senhaGerada = new List<char>();
             var conjuntoGeral = new List<char>();
 
-            // Adiciona pelo menos um de cada tipo selecionado
             if (senha.IncluirLetrasMaiusculas)
             {
                 senhaGerada.Add(LetrasMaiusculas[random.Next(LetrasMaiusculas.Length)]);

@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule, HttpClient, HttpParams } from '@angular/common/http';
 import { ConversorService } from '../../services/conversor/conversor.service';
 import { saveAs } from 'file-saver';
 
@@ -16,9 +15,20 @@ import { saveAs } from 'file-saver';
   templateUrl: './conversor.component.html',
   styleUrl: './conversor.component.css'
 })
+
 export class ConversorComponent {
 
   constructor(private conversorService: ConversorService) {}
+
+  //Constantes
+  MensagemNenhumArquivoSelecionado = 'Nenhum arquivo foi selecionado.';
+  MensagemArquivoInvalidoPdf = 'Tipo de arquivo inválido. Apenas arquivos PDF são permitidos.';
+  MensagemArquivoInvalidoWord = 'Tipo de arquivo inválido. Apenas arquivos .doc ou .docx são permitidos.';
+  MensagemTipoDeArquivoInvalido = 'Tipo de arquivo inválido.';
+  MensagemErroAoConverter = 'Erro ao converter o arquivo.';
+  ExtensaoPdf = '.pdf';
+  ExtensaoWord = '.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+  //
 
   PdfParaWord = { label: 'PDF para Word', value: '0' };
   WordParaPdf = { label: 'Word para PDF', value: '1' };
@@ -33,7 +43,7 @@ export class ConversorComponent {
   conversaoSelecionada = this.TIPOS_CONVERSAO[0].value;
 
   aoSelecionarArquivo(event: Event): void {
-    debugger;
+
     const input = event.target as HTMLInputElement;
     if (!input.files?.length) {
       return;
@@ -51,14 +61,14 @@ export class ConversorComponent {
     };
 
     const mensagensErro: { [key: string]: string } = {
-      [parseInt(this.PdfParaWord.value)]: 'Tipo de arquivo inválido. Apenas arquivos PDF são permitidos.',
-      [parseInt(this.WordParaPdf.value)]: 'Tipo de arquivo inválido. Apenas arquivos .doc ou .docx são permitidos.'
+      [parseInt(this.PdfParaWord.value)]: this.MensagemArquivoInvalidoPdf,
+      [parseInt(this.WordParaPdf.value)]: this.MensagemArquivoInvalidoWord
     };
 
     const tiposValidos = formatosPermitidos[tipoConversao] || [];
 
     if (!tiposValidos.includes(file.type)) {
-      alert(mensagensErro[tipoConversao] || 'Tipo de arquivo inválido.');
+      alert(mensagensErro[tipoConversao] || this.MensagemTipoDeArquivoInvalido);
       return;
     }
 
@@ -68,9 +78,9 @@ export class ConversorComponent {
   }
 
   ConverterArquivo(): void {
-    debugger;
+
     if (!this.arquivoCarregado) {
-      alert('Nenhum arquivo foi selecionado.');
+      alert(this.MensagemNenhumArquivoSelecionado);
       return;
     }
 
@@ -80,17 +90,17 @@ export class ConversorComponent {
     }).subscribe(blob => {
       this.arquivoConvertido = blob;
     }, error => {
-      alert('Erro ao converter o arquivo.');
+      alert(this.MensagemErroAoConverter);
       console.error(error);
     });
   }
 
   get tipoAceito(): string {
     switch (this.conversaoSelecionada) {
-      case '0':
-        return '.pdf';
-      case '1':
-        return '.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+      case this.PdfParaWord.value:
+        return this.ExtensaoPdf;
+      case this.WordParaPdf.value:
+        return this.ExtensaoWord;
       default:
         return '*/*';
     }
@@ -103,7 +113,9 @@ export class ConversorComponent {
   baixarArquivo(): void {
     if (!this.arquivoConvertido || !this.arquivoCarregado) return;
 
-    const extensao = this.conversaoSelecionada === '0' ? 'docx' : 'pdf';
+    const extensao = this.conversaoSelecionada === this.PdfParaWord.value
+      ? 'docx'
+      : 'pdf';
     const nomeOriginal = this.arquivoCarregado.name.split('.').slice(0, -1).join('.');
     const nomeFinal = `${nomeOriginal}_convertido.${extensao}`;
 
