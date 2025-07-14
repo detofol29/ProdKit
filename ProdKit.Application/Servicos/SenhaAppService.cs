@@ -13,7 +13,6 @@ namespace ProdKit.Application.Servicos
     {
         public string GerarSenha(GerarSenhaRequest request)
         {
-            //fazer validacao
 
             var senha = new Senha(
                 request.Tamanho,

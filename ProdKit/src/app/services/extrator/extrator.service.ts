@@ -30,5 +30,6 @@ export class ExtratorService {
     return this.http.post(this.apiUrl, formData, {
       responseType: 'blob'
     });
+    //dados binarios brutos
   }
 }

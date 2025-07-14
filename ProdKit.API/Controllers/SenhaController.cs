@@ -27,7 +27,6 @@ namespace ProdKit.API.Controllers
             {
                 return BadRequest(new { Erro = ex.Message });
             }
-            
         }
     }
 }
