@@ -20,10 +20,10 @@ export class FormatadorComponent {
   formatar(): void {
     try{
       if(this.TipoArquivo == 'json'){
-        this.formatJson();
+        this._formatJson();
       }
       else{
-        this.formatXmlContent();
+        this._formatXml();
       }
     }
     catch(erro){
@@ -31,14 +31,14 @@ export class FormatadorComponent {
     }
   }
 
-  formatJson(): void {
+  _formatJson(): void {
       let content = this.textoOriginal;
       const obj = JSON.parse(content);
       let jsonFormatado = JSON.stringify(obj, null, 2); // 2 espaços de indentação
       this.textoFormatado = jsonFormatado;
   }
 
-  formatXmlContent(): void {      
+  _formatXml(): void {
       let content = this.textoOriginal;
       this.textoFormatado = formatXml(content, { indentation: '  ' }); // 2 espaços
   }
@@ -53,5 +53,10 @@ export class FormatadorComponent {
         alert('Falha ao copiar o texto.');
         console.error(err);
       });
+  }
+
+  aoMudarTipoArquivo(){
+    this.textoOriginal = '';
+    this.textoFormatado = '';
   }
 }

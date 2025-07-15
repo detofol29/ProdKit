@@ -1,6 +1,4 @@
-<div
-  class="flex flex-col text-xs mx-1 p-3 rounded-xl shadow-lg my-10 corFundoComponentes lg:h-[85vh] lg:w-[70vw]"
->
+<div class="flex flex-col text-xs mx-1 p-3 rounded-xl shadow-lg my-10 corFundoComponentes lg:h-[85vh] lg:w-[70vw]">
   <!-- H1 fixo no topo -->
   <div>
     <h1 class="font-extrabold text-xl lg:text-3xl">VALIDADOR</h1>
@@ -10,14 +8,10 @@
   <div class="flex flex-2 flex-col gap-4 my-4 mx-1 g:items-center lg:justify-center">
 
     <form class="max-w-sm mx-auto">
-      <label for="tipo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecione uma opção:</label>
-      <select
-        id="tipo"
-        name="tipo"
-        [(ngModel)]="Tipo"
-        (change)="aoTrocarTipo()"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-      >
+      <label for="tipo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecione uma
+        opção:</label>
+      <select id="tipo" name="tipo" [(ngModel)]="Tipo" (change)="aoTrocarTipo()"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 
         <option *ngFor="let tipo of TiposDisponiveis" [value]="tipo">
           {{ tipo }}
@@ -25,42 +19,34 @@
       </select>
     </form>
 
-    <div class="mb-6">
-      <label
-        for="success"
-        class="block mb-2 text-sm font-medium"
-        [ngClass]="{
+    <div class="mb-6 mx-auto">
+      <label for="success" class="block mb-2 text-sm font-medium" [ngClass]="{
           'text-green-700 dark:text-green-500': Valido,
           'text-red-700 dark:text-red-500': Valido === false && Mensagem
-        }">Digite o {{ Tipo }}:</label>
-      <input
-        type="text"
-        id="success"
-        [(ngModel)]="Conteudo"
-        class="text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700"
-        [ngClass]="{
-          'bg-green-50 border border-green-500 text-green-900 placeholder-green-700 dark:text-green-400 dark:placeholder-green-500 dark:border-green-500': Valido,
-          'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 dark:text-red-400 dark:placeholder-red-500 dark:border-red-500': Valido === false && Mensagem
-        }"
-        placeholder="Success input"
-      />
+        }">Digite o {{ Tipo }}:
+      </label>
 
-      <p class="mt-2 text-sm text-green-600 dark:text-green-500" [ngClass] = "{
+      <input type="text" id="success" [(ngModel)]="Conteudo"
+        class="text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-[50vh] p-2.5 bg-gray-700"
+        [ngClass]="{
+          ' border border-green-500 text-green-900 placeholder-green-700 dark:text-green-400 dark:placeholder-green-500 dark:border-green-500': Valido,
+          ' border border-red-500 text-red-900 placeholder-red-700 dark:text-red-400 dark:placeholder-red-500 dark:border-red-500': Valido === false && Mensagem
+        }" placeholder="" />
+
+      <p class="mt-2 text-sm text-green-600 dark:text-green-500" [ngClass]="{
           'text-green-700 dark:text-green-500': Valido,
           'text-red-700 dark:text-red-500': Valido === false
-        }"><span class="font-medium">{{Mensagem}}</span></p>
+        }">
+        <span class="font-medium">{{Mensagem}}</span>
+      </p>
     </div>
 
     <div class=" text-center">
-    <button
-      (click)="validar()"
-      class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 lg:py-3 lg:px-8 rounded-md transition lg:text-lg"
-    >
-      Validar
-    </button>
-  </div>
-
+      <button (click)="validar()"
+        class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 lg:py-3 lg:px-8 rounded-md transition lg:text-lg">
+        Validar
+      </button>
+    </div>
 
   </div>
-
 </div>

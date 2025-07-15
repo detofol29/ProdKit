@@ -1,6 +1,4 @@
-<div
-  class="flex flex-col text-xs mx-1 p-3 rounded-xl shadow-lg my-10 corFundoComponentes lg:h-[85vh] lg:w-[70vw]"
->
+<div class="flex flex-col text-xs mx-1 p-3 rounded-xl shadow-lg my-10 corFundoComponentes lg:h-[85vh] lg:w-[70vw]">
   <!-- H1 fixo no topo -->
   <div>
     <h1 class="font-extrabold text-xl lg:text-3xl">FORMATADOR</h1>
@@ -8,40 +6,42 @@
 
   <!-- Conteúdo centralizado em lg -->
   <div class="flex flex-2 flex-row gap-4 my-4 mx-1 g:items-center lg:justify-center">
-    <div>
-        <label for="">Texto Original</label>
-        <textarea id="" [(ngModel)]="textoOriginal" class="bg-white h-[60vh] w-full text-black rounded-lg"></textarea>
+
+    <div class="w-full">
+      <label>Texto {{TipoArquivo.toUpperCase()}} Original</label>
+      <textarea id="" [(ngModel)]="textoOriginal"
+        class="font-mono bg-gray-900 text-green-300 placeholder-gray-500 h-[50vh] w-full p-4 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-green-400 resize-none"></textarea>
     </div>
-    <div>
-        <label for="">Texto Formatado</label>
-        <textarea id="" [(ngModel)]="textoFormatado" class="bg-white text-black h-[60vh] w-full rounded-lg"></textarea>
+
+    <div class="w-full">
+      <label>Texto {{TipoArquivo.toUpperCase()}} Formatado</label>
+      <textarea id="" [(ngModel)]="textoFormatado"
+        class="font-mono bg-gray-900 text-green-300 placeholder-gray-500 h-[50vh] w-full p-4 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-green-400 resize-none"
+        placeholder=""></textarea>
     </div>
 
   </div>
   <div class="my-2">
-    <button
-        (click)="copiarTextoFormatado()"
-        class="bg-blue-600 hover:bg-blue-700 text-white text-sm px-3 py-1 lg:px-5 lg:py-2 rounded lg:text-base"
-        title="Copiar">
-        <i class="fas fa-copy text-xl"></i>
+    <button (click)="copiarTextoFormatado()"
+      class="bg-blue-600 hover:bg-blue-700 text-white text-sm px-3 py-1 lg:px-5 lg:py-2 rounded lg:text-base"
+      title="Copiar">
+      <i class="fas fa-copy text-xl"></i>
     </button>
   </div>
 
   <div class="mb-2">
     <select
-            [(ngModel)]="TipoArquivo"
-            class="w-full p-2 lg:p-4 border rounded-md corFundoComponentes lg:text-base"
-          >
-            <option value="json">JSON</option>
-            <option value="xml">XML</option>
-      </select>
+      [(ngModel)]="TipoArquivo"
+      class="w-full p-2 lg:p-4 border rounded-md corFundoComponentes lg:text-base"
+      (change)="aoMudarTipoArquivo()">
+      <option value="json">JSON</option>
+      <option value="xml">XML</option>
+    </select>
   </div>
 
   <div class="mb-5 text-center">
-    <button
-      (click)="formatar()"
-      class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 lg:py-3 lg:px-8 rounded-md transition lg:text-lg"
-    >
+    <button (click)="formatar()"
+      class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 lg:py-3 lg:px-8 rounded-md transition lg:text-lg">
       Formatar
     </button>
   </div>
