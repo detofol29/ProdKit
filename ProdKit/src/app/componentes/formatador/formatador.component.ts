@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient, HttpParams } from '@angular/common/http';
 import formatXml from 'xml-formatter';
+import { MensagemService } from '../../services/mensagem/mensagem.service';
 
 @Component({
   selector: 'app-formatador',
@@ -12,6 +13,8 @@ import formatXml from 'xml-formatter';
   styleUrl: './formatador.component.css'
 })
 export class FormatadorComponent {
+
+  constructor(private mensagemService: MensagemService) {}
 
   TipoArquivo: string = 'json';
   textoFormatado: string = '';
@@ -27,7 +30,7 @@ export class FormatadorComponent {
       }
     }
     catch(erro){
-      alert(`Digite um arquivo ${this.TipoArquivo} válido!`);
+      this.mensagemService.ExibirMensagem(`Digite um arquivo ${this.TipoArquivo} válido!`);
     }
   }
 
@@ -47,10 +50,10 @@ export class FormatadorComponent {
     navigator.clipboard
       .writeText(this.textoFormatado)
       .then(() => {
-        alert('Texto copiado para a área de transferência!');
+        this.mensagemService.ExibirMensagem('Texto copiado para a área de transferência!');
       })
       .catch(err => {
-        alert('Falha ao copiar o texto.');
+        this.mensagemService.ExibirMensagem('Falha ao copiar o texto.');
         console.error(err);
       });
   }

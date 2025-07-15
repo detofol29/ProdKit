@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient, HttpParams } from '@angular/common/http';
 import { ExtratorService } from '../../services/extrator/extrator.service';
+import { MensagemService } from '../../services/mensagem/mensagem.service';
 
 
 @Component({
@@ -20,7 +21,7 @@ import { ExtratorService } from '../../services/extrator/extrator.service';
 
 export class ExtratorComponent {
 
-  constructor(private extratorService: ExtratorService) {}
+  constructor(private extratorService: ExtratorService, private mensagemService: MensagemService) {}
 
   videoCarregado: File | null = null;
   videoUrl: string | null = null;
@@ -43,11 +44,11 @@ export class ExtratorComponent {
     const file = input.files[0];
 
     if (file.type !== formatoMp4) {
-      alert(mensagemFormatoInvalido);
+      this.mensagemService.ExibirMensagem(mensagemFormatoInvalido);
       return;
     }
 
-    alert(mensagemArquivoSelecionado + file.name);
+    this.mensagemService.ExibirMensagem(mensagemArquivoSelecionado + file.name);
 
     this.videoCarregado = file;
     this.videoUrl = URL.createObjectURL(file);

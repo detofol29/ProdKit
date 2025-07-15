@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ConversorService } from '../../services/conversor/conversor.service';
 import { saveAs } from 'file-saver';
+import { MensagemService } from '../../services/mensagem/mensagem.service';
 
 @Component({
   selector: 'app-conversor',
@@ -18,7 +19,7 @@ import { saveAs } from 'file-saver';
 
 export class ConversorComponent {
 
-  constructor(private conversorService: ConversorService) {}
+  constructor(private conversorService: ConversorService, private mensagemService: MensagemService) {}
 
   //Constantes
   MensagemNenhumArquivoSelecionado = 'Nenhum arquivo foi selecionado.';
@@ -68,11 +69,12 @@ export class ConversorComponent {
     const tiposValidos = formatosPermitidos[tipoConversao] || [];
 
     if (!tiposValidos.includes(file.type)) {
-      alert(mensagensErro[tipoConversao] || this.MensagemTipoDeArquivoInvalido);
+      this.mensagemService.ExibirMensagem(mensagensErro[tipoConversao] || this.MensagemTipoDeArquivoInvalido);
       return;
     }
 
-    alert('Arquivo selecionado: ' + file.name);
+    let mensagemArquivoSelecionado = 'Arquivo selecionado: ' + file.name;
+    this.mensagemService.ExibirMensagem(mensagemArquivoSelecionado);
 
     this.arquivoCarregado = file;
   }
@@ -80,7 +82,7 @@ export class ConversorComponent {
   ConverterArquivo(): void {
 
     if (!this.arquivoCarregado) {
-      alert(this.MensagemNenhumArquivoSelecionado);
+      this.mensagemService.ExibirMensagem(this.MensagemNenhumArquivoSelecionado);
       return;
     }
 
@@ -90,7 +92,7 @@ export class ConversorComponent {
     }).subscribe(blob => {
       this.arquivoConvertido = blob;
     }, error => {
-      alert(this.MensagemErroAoConverter);
+      this.mensagemService.ExibirMensagem(this.MensagemErroAoConverter);
       console.error(error);
     });
   }

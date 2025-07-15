@@ -9,6 +9,9 @@ import { FormatadorComponent } from './componentes/formatador/formatador.compone
 import { ValidadorComponent } from './componentes/validador/validador.component';
 import { ExtratorComponent } from './componentes/extrator/extrator.component';
 import { ConversorComponent } from './componentes/conversor/conversor.component';
+import { GeradorWhatsappComponent } from './componentes/gerador-whatsapp/gerador-whatsapp.component';
+import { DialogAlertaComponent } from './componentes/dialog-alerta/dialog-alerta.component';
+import { CalculadoraJurosCompostosComponent } from './componentes/calculadora-juros-compostos/calculadora-juros-compostos.component';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +25,10 @@ import { ConversorComponent } from './componentes/conversor/conversor.component'
     FormatadorComponent,
     ValidadorComponent,
     ExtratorComponent,
-    ConversorComponent
+    ConversorComponent,
+    GeradorWhatsappComponent,
+    DialogAlertaComponent,
+    CalculadoraJurosCompostosComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

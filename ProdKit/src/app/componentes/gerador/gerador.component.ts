@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { SenhaService, GerarSenhaRequest, Resposta } from '../../services/senha/senha.service';
+import { MensagemService } from '../../services/mensagem/mensagem.service';
 
 @Component({
   selector: 'app-gerador',
@@ -17,16 +18,16 @@ export class GeradorComponent {
   numeros = false;
   caracteresEspeciais = false;
 
-  constructor(private senhaService: SenhaService) {}
+  constructor(private senhaService: SenhaService, private mensagemService: MensagemService) {}
 
   copiarSenha() {
     navigator.clipboard
       .writeText(this.senhaGerada)
       .then(() => {
-        alert('Texto copiado para a área de transferência!');
+        this.mensagemService.ExibirMensagem('Texto copiado para a área de transferência!');
       })
       .catch(err => {
-        alert('Falha ao copiar o texto.');
+        this.mensagemService.ExibirMensagem('Falha ao copiar o texto.');
         console.error(err);
       });
   }
@@ -49,7 +50,7 @@ export class GeradorComponent {
 
       error: (err) => {
         console.error('Erro ao gerar senha', err);
-        alert(err.error.erro);
+        this.mensagemService.ExibirMensagem(err.error.erro);
       }
 
     });

@@ -6,6 +6,8 @@ import { FormatadorComponent } from './componentes/formatador/formatador.compone
 import { ValidadorComponent } from './componentes/validador/validador.component';
 import { ExtratorComponent } from './componentes/extrator/extrator.component';
 import { ConversorComponent } from './componentes/conversor/conversor.component';
+import { GeradorWhatsappComponent } from './componentes/gerador-whatsapp/gerador-whatsapp.component';
+import { CalculadoraJurosCompostosComponent } from './componentes/calculadora-juros-compostos/calculadora-juros-compostos.component';
 
 
 export const routes: Routes = [
@@ -16,6 +18,8 @@ export const routes: Routes = [
   { path: 'formatador', component: FormatadorComponent },
   { path: 'validador', component: ValidadorComponent },
   { path: 'extrator', component: ExtratorComponent },
-  { path: 'conversor', component: ConversorComponent},
+  { path: 'conversor', component: ConversorComponent },
+  { path: 'whatsapp', component: GeradorWhatsappComponent },
+  { path: 'calculadorajuroscompostos', component: CalculadoraJurosCompostosComponent },
   { path: '**', redirectTo: 'home' }
 ];
