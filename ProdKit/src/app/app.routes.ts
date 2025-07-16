@@ -8,6 +8,9 @@ import { ExtratorComponent } from './componentes/extrator/extrator.component';
 import { ConversorComponent } from './componentes/conversor/conversor.component';
 import { GeradorWhatsappComponent } from './componentes/gerador-whatsapp/gerador-whatsapp.component';
 import { CalculadoraJurosCompostosComponent } from './componentes/calculadora-juros-compostos/calculadora-juros-compostos.component';
+import { ContadorComponent } from './componentes/contador/contador.component';
+import { ConversorDeUnidadesComponent } from './componentes/conversor-de-unidades/conversor-de-unidades.component';
+import { ConversorMoedasComponent } from './componentes/conversor-moedas/conversor-moedas.component';
 
 
 export const routes: Routes = [
@@ -21,5 +24,8 @@ export const routes: Routes = [
   { path: 'conversor', component: ConversorComponent },
   { path: 'whatsapp', component: GeradorWhatsappComponent },
   { path: 'calculadorajuroscompostos', component: CalculadoraJurosCompostosComponent },
+  { path: 'contador', component: ContadorComponent},
+  { path: 'conversordeunidades', component: ConversorDeUnidadesComponent},
+  { path: 'conversormoedas', component: ConversorMoedasComponent},
   { path: '**', redirectTo: 'home' }
 ];

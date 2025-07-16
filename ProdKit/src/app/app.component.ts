@@ -12,6 +12,9 @@ import { ConversorComponent } from './componentes/conversor/conversor.component'
 import { GeradorWhatsappComponent } from './componentes/gerador-whatsapp/gerador-whatsapp.component';
 import { DialogAlertaComponent } from './componentes/dialog-alerta/dialog-alerta.component';
 import { CalculadoraJurosCompostosComponent } from './componentes/calculadora-juros-compostos/calculadora-juros-compostos.component';
+import { ContadorComponent } from './componentes/contador/contador.component';
+import { ConversorDeUnidadesComponent } from './componentes/conversor-de-unidades/conversor-de-unidades.component';
+import { ConversorMoedasComponent } from './componentes/conversor-moedas/conversor-moedas.component';
 
 @Component({
   selector: 'app-root',
@@ -28,7 +31,10 @@ import { CalculadoraJurosCompostosComponent } from './componentes/calculadora-ju
     ConversorComponent,
     GeradorWhatsappComponent,
     DialogAlertaComponent,
-    CalculadoraJurosCompostosComponent
+    CalculadoraJurosCompostosComponent,
+    ContadorComponent,
+    ConversorDeUnidadesComponent,
+    ConversorMoedasComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

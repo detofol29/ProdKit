@@ -1,0 +1,73 @@
+<div class="flex flex-col text-xs mx-1 p-3 rounded-xl shadow-lg my-10 corFundoComponentes lg:h-[85vh] lg:w-[70vw]">
+    <!-- H1 fixo no topo -->
+    <div>
+        <h1 class="font-extrabold text-xl lg:text-3xl">CONVERSOR DE UNIDADES</h1>
+    </div>
+
+    <!-- Conteúdo centralizado em lg -->
+    <div class="flex flex-2 flex-col gap-4 my-4 mx-1 g:items-center lg:justify-center">
+        <!-- Seleção de categoria -->
+        <div class="w-full ">
+        <label for="categoria" class="block mb-1 font-semibold">Categoria:</label>
+        <select
+            id="categoria"
+            [(ngModel)]="categoriaSelecionada"
+            (change)="atualizarUnidades()"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+        >
+            <option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</option>
+        </select>
+        </div>
+
+        <!-- Valor a converter -->
+        <div class="w-full ">
+        <label for="valor" class="block mb-1 font-semibold">Valor:</label>
+        <input
+            type="number"
+            [(ngModel)]="valor"
+            id="valor"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+            placeholder="Ex: 100"
+        />
+        </div>
+
+        <!-- Unidade de origem -->
+        <div class="w-full ">
+        <label for="de" class="block mb-1 font-semibold">Converter de:</label>
+        <select
+            id="de"
+            [(ngModel)]="unidadeOrigem"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+        >
+            <option *ngFor="let unidade of unidades" [value]="unidade">{{ unidade }}</option>
+        </select>
+        </div>
+
+        <!-- Unidade de destino -->
+        <div class="w-full ">
+        <label for="para" class="block mb-1 font-semibold">Converter para:</label>
+        <select
+            id="para"
+            [(ngModel)]="unidadeDestino"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+        >
+            <option *ngFor="let unidade of unidades" [value]="unidade">{{ unidade }}</option>
+        </select>
+        </div>
+
+        <!-- Botão -->
+        <div class="w-full  flex justify-center">
+        <button
+            (click)="converterUnidade()"
+            class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg transition"
+        >
+            Converter
+        </button>
+        </div>
+
+        <!-- Resultado -->
+        <div *ngIf="resultado !== null" class="w-full  text-center bg-indigo-100 text-indigo-900 p-4 rounded-md shadow">
+        <p class="text-lg font-semibold">Resultado: {{ resultado | number:'1.2-6' }} {{ unidadeDestino }}</p>
+        </div>        
+    </div>
+</div>
