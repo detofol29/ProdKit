@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ProdKit.Application.DTOs;
-using ProdKit.Application.Inferfaces;
+using ProdKit.Domain.DTOs;
+using ProdKit.Domain.Inferfaces;
 
 namespace ProdKit.API.Controllers
 {

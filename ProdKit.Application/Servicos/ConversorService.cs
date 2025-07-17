@@ -1,7 +1,7 @@
 ﻿using Aspose.Pdf;
 using Microsoft.AspNetCore.Http;
-using ProdKit.Application.Inferfaces;
 using ProdKit.Domain.Enumeradores;
+using ProdKit.Domain.Inferfaces;
 
 namespace ProdKit.Application.Servicos
 {

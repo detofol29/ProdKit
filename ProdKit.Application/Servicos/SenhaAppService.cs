@@ -1,6 +1,6 @@
-﻿using ProdKit.Application.DTOs;
-using ProdKit.Application.Inferfaces;
-using ProdKit.Domain;
+﻿using ProdKit.Domain;
+using ProdKit.Domain.DTOs;
+using ProdKit.Domain.Inferfaces;
 
 namespace ProdKit.Application.Servicos
 {

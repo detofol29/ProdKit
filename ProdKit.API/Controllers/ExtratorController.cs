@@ -1,10 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ProdKit.Application.DTOs;
-using ProdKit.Application.Inferfaces;
-using ProdKit.Application.Servicos;
-using ProdKit.Domain;
-using Xabe.FFmpeg;
-using Xabe.FFmpeg.Downloader;
+using ProdKit.Domain.Inferfaces;
 
 namespace ProdKit.API.Controllers
 {

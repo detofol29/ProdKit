@@ -1,5 +1,6 @@
-using ProdKit.Application.Inferfaces;
+using ProdKit.Domain.Inferfaces;
 using ProdKit.Application.Servicos;
+using ProdKit.Infrastructure.Cotacao;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,9 @@ builder.Services.AddCors(options =>
 builder.Services.AddScoped<ISenhaAppService, SenhaAppService>();
 builder.Services.AddScoped<IExtratorService, ExtratorService>();
 builder.Services.AddScoped<IConversorService, ConversorService>();
+builder.Services.AddScoped<ICotacaoService, CotacaoService>();
+builder.Services.AddScoped<ICotacaoComunicador, CotacaoComunicador>();
+builder.Services.AddHttpClient<ICotacaoComunicador, CotacaoComunicador>();
 
 builder.Services.AddControllers();
 
