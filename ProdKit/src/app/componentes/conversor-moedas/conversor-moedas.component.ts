@@ -16,7 +16,7 @@ import { MatSelectModule } from '@angular/material/select';
 export class ConversorMoedasComponent implements OnInit {
 
   public readonly moedas = [
-    { codigo: 'BRL', nome: 'Real Brasileiro', bandeiraUrl: 'https://flagcdn.com/w40/br.png' },
+    { codigo: 'BRL', nome: 'Real Brasileiro', bandeiraUrl: 'https://flagcdn.com/br.svg' },
     { codigo: 'USD', nome: 'Dólar Americano', bandeiraUrl: 'https://flagcdn.com/w40/us.png' },
     { codigo: 'EUR', nome: 'Euro', bandeiraUrl: 'https://flagcdn.com/w40/eu.png' },
     { codigo: 'GBP', nome: 'Libra Esterlina', bandeiraUrl: 'https://flagcdn.com/w40/gb.png' },

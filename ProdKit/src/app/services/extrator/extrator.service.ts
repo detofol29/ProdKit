@@ -23,7 +23,6 @@ export class ExtratorService {
   constructor(private http: HttpClient) {}
 
   extrairAudio(request: ExtratorRequest) {
-    debugger;
     const formData = new FormData();
     formData.append('file', request.video);
 

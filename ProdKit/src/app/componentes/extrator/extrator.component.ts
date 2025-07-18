@@ -34,7 +34,6 @@ export class ExtratorComponent {
     const formatoMp4 = 'video/mp4';
     const mensagemFormatoInvalido = 'Tipo de arquivo inválido. Apenas MP4 é permitido.';
     const mensagemArquivoSelecionado = 'Arquivo selecionado: ';
-
     const input = event.target as HTMLInputElement;
 
     if (!input.files?.length) {
@@ -42,6 +41,11 @@ export class ExtratorComponent {
     }
 
     const file = input.files[0];
+
+    if(file.size > 100 * 1024 * 1024) { // Limite de 100MB
+      this.mensagemService.ExibirMensagem('O arquivo é muito grande. O tamanho máximo permitido é 100MB.');
+      return;
+    }
 
     if (file.type !== formatoMp4) {
       this.mensagemService.ExibirMensagem(mensagemFormatoInvalido);
@@ -56,10 +60,15 @@ export class ExtratorComponent {
 
   ExtrairAudio(): void {
     const formatoMp3 = 'audio.mp3';
+
+    if (!this.videoCarregado) {
+      this.mensagemService.ExibirMensagem('Nenhum vídeo selecionado.');
+      return;
+    }
+
     this.iniciarCarregamento();
     this.extratorService.extrairAudio({ video: this.videoCarregado as File })
     .subscribe(blob => {
-      debugger;
       const mp3File = new File([blob], formatoMp3, { type: 'audio/mpeg' });
       this.audioUrl = URL.createObjectURL(mp3File);
       this.audioExtraido = mp3File;

@@ -20,7 +20,6 @@ export class ConversorService {
   constructor(private http: HttpClient) {}
 
   converterArquivo(request: ConversorRequest) {
-    debugger;
     const formData = new FormData();
     formData.append('file', request.arquivo); // <-- nome esperado no backend
     formData.append('tipoDeConversao', request.tipoConversao);

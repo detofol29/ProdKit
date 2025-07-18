@@ -35,7 +35,6 @@ export class TradutorComponent {
       this.textoTraduzido = res.translations[0].text;
     },
     error: (err) => {
-      debugger;
       console.error(err);
       alert('Erro ao traduzir com DeepL.');
     }
