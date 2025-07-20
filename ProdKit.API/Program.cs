@@ -5,13 +5,24 @@ using Microsoft.AspNetCore.Http.Features;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//builder.Services.AddCors(options =>
+//{
+//    options.AddDefaultPolicy(policy =>
+//    {
+//        policy.WithOrigins("http://localhost:4200") // Porta do Angular
+//              .AllowAnyHeader()
+//              .AllowAnyMethod();
+//    });
+//});
+
 builder.Services.AddCors(options =>
 {
-    options.AddDefaultPolicy(policy =>
+    options.AddPolicy("AllowAngularDev", builder =>
     {
-        policy.WithOrigins("http://localhost:4200") // Porta do Angular
-              .AllowAnyHeader()
-              .AllowAnyMethod();
+        builder.WithOrigins("http://localhost:4200") // Angular rodando em HTTPS
+               .AllowAnyHeader()
+               .AllowAnyMethod()
+               .AllowCredentials();
     });
 });
 
@@ -37,7 +48,8 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
 
 var app = builder.Build();
 
-app.UseCors();
+// No middleware:
+app.UseCors("AllowAngularDev");
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();

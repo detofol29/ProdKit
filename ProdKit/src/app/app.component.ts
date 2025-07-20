@@ -15,6 +15,8 @@ import { CalculadoraJurosCompostosComponent } from './componentes/calculadora-ju
 import { ContadorComponent } from './componentes/contador/contador.component';
 import { ConversorDeUnidadesComponent } from './componentes/conversor-de-unidades/conversor-de-unidades.component';
 import { ConversorMoedasComponent } from './componentes/conversor-moedas/conversor-moedas.component';
+import { ExtratorDeTextoComponent } from './componentes/extrator-de-texto/extrator-de-texto.component';
+import { SobreComponent } from './componentes/sobre/sobre.component';
 
 @Component({
   selector: 'app-root',
@@ -34,7 +36,9 @@ import { ConversorMoedasComponent } from './componentes/conversor-moedas/convers
     CalculadoraJurosCompostosComponent,
     ContadorComponent,
     ConversorDeUnidadesComponent,
-    ConversorMoedasComponent
+    ConversorMoedasComponent,
+    ExtratorDeTextoComponent,
+    SobreComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

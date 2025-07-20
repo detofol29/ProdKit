@@ -11,6 +11,8 @@ import { CalculadoraJurosCompostosComponent } from './componentes/calculadora-ju
 import { ContadorComponent } from './componentes/contador/contador.component';
 import { ConversorDeUnidadesComponent } from './componentes/conversor-de-unidades/conversor-de-unidades.component';
 import { ConversorMoedasComponent } from './componentes/conversor-moedas/conversor-moedas.component';
+import { ExtratorDeTextoComponent } from './componentes/extrator-de-texto/extrator-de-texto.component';
+import { SobreComponent } from './componentes/sobre/sobre.component';
 
 
 export const routes: Routes = [
@@ -27,5 +29,7 @@ export const routes: Routes = [
   { path: 'contador', component: ContadorComponent},
   { path: 'conversordeunidades', component: ConversorDeUnidadesComponent},
   { path: 'conversormoedas', component: ConversorMoedasComponent},
+  { path: 'extratordetexto', component: ExtratorDeTextoComponent},
+  { path: 'sobre', component: SobreComponent},
   { path: '**', redirectTo: 'home' }
 ];
