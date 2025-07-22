@@ -1,5 +1,5 @@
 # Etapa 1: Build usando .NET 9 Preview
-FROM mcr.microsoft.com/dotnet/sdk:9.0-preview AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 # Copia toda a raiz do projeto
@@ -10,7 +10,7 @@ RUN dotnet restore ProdKit.API/ProdKit.API.csproj
 RUN dotnet publish ProdKit.API/ProdKit.API.csproj -c Release -o /app/publish
 
 # Etapa 2: Runtime com ASP.NET 9 Preview
-FROM mcr.microsoft.com/dotnet/aspnet:9.0-preview
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=build /app/publish .
 
