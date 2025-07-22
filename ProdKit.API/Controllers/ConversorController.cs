@@ -27,6 +27,7 @@ namespace ProdKit.API.Controllers
         {
             try
             {
+                Console.WriteLine("Requisição recebida para converter arquivo PDF/WORD");
                 if (!Enum.TryParse<TipoDeConversao>(tipoDeConversao, out var tipo))
                     return BadRequest(mensagemConversaoInvalida);
 
@@ -44,6 +45,7 @@ namespace ProdKit.API.Controllers
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"Ocorreu um erro ao converter arquivo: {ex.Message}");
                 return StatusCode(500, $"Erro interno: {ex.Message}");
             }
         }
