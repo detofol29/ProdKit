@@ -50,18 +50,18 @@
 #ENTRYPOINT ["dotnet", "ProdKit.API.dll"]
 
 
-# Etapa 1: Build
+# Etapa 1: Build da aplicação
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 COPY . .
 RUN dotnet restore ProdKit.API/ProdKit.API.csproj
 RUN dotnet publish ProdKit.API/ProdKit.API.csproj -c Release -o /app/publish
 
-# Etapa 2: Runtime com Debian + dependências
-FROM mcr.microsoft.com/dotnet/aspnet:8.0-slim AS runtime
+# Etapa 2: Runtime com dependências instaladas
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 
-# Instala ffmpeg e libgdiplus no Debian Slim
+# Instala ffmpeg, libgdiplus e outras dependências
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         ffmpeg \
@@ -76,5 +76,6 @@ COPY --from=build /app/publish .
 
 EXPOSE 80
 ENTRYPOINT ["dotnet", "ProdKit.API.dll"]
+
 
 
