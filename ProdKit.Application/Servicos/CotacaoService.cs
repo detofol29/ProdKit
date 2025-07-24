@@ -1,6 +1,5 @@
 ﻿using ProdKit.Domain.DTOs;
 using ProdKit.Domain.Inferfaces;
-using System.Drawing.Imaging.Effects;
 
 namespace ProdKit.Application.Servicos
 {
