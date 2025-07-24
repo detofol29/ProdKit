@@ -86,15 +86,18 @@ export class ConversorComponent {
       return;
     }
 
-    this.conversorService.converterArquivo({
-      arquivo: this.arquivoCarregado,
-      tipoConversao: this.conversaoSelecionada
-    }).subscribe(blob => {
-      this.arquivoConvertido = blob;
-    }, error => {
-      this.mensagemService.ExibirMensagem(this.MensagemErroAoConverter);
-      console.error(error);
-    });
+    this.mensagemService.ExibirMensagem("Serviço indisponível no momento!");
+    return;
+
+    // this.conversorService.converterArquivo({
+    //   arquivo: this.arquivoCarregado,
+    //   tipoConversao: this.conversaoSelecionada
+    // }).subscribe(blob => {
+    //   this.arquivoConvertido = blob;
+    // }, error => {
+    //   this.mensagemService.ExibirMensagem(this.MensagemErroAoConverter);
+    //   console.error(error);
+    // });
   }
 
   get tipoAceito(): string {
