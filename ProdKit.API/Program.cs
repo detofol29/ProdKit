@@ -17,12 +17,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAngularDev", builder =>
+    options.AddPolicy("AllowFrontEnd", policy =>
     {
-        builder.WithOrigins("http://localhost:4200") // Angular rodando em HTTPS
-               .AllowAnyHeader()
-               .AllowAnyMethod()
-               .AllowCredentials();
+        policy.WithOrigins(
+                "http://localhost:4200", // Angular local dev
+                "https://prodkitbeta.netlify.app" // Angular em produção no Netlify
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
     });
 });
 
@@ -49,7 +52,7 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
 var app = builder.Build();
 
 // No middleware:
-app.UseCors("AllowAngularDev");
+app.UseCors("AllowFrontEnd");
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
