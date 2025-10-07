@@ -21,7 +21,8 @@ namespace ProdKit.API.Controllers
             try
             {
                 Console.WriteLine("Requisição recebida para conversão de arquivo!");
-                var ip = HttpContext.Connection.RemoteIpAddress?.ToString();
+                var ip = HttpContext.Request.Headers["X-Forwarded-For"].FirstOrDefault()
+                        ?? HttpContext.Connection.RemoteIpAddress?.ToString();
                 Console.WriteLine($"Requisição feita por: [{ip}]");
                 var sw = new Stopwatch();
                 sw.Start();
