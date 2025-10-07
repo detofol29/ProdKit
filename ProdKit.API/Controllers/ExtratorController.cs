@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProdKit.Domain.Inferfaces;
+using System.Diagnostics;
 
 namespace ProdKit.API.Controllers
 {
@@ -20,7 +21,11 @@ namespace ProdKit.API.Controllers
             try
             {
                 Console.WriteLine("Requisição recebida para conversão de arquivo!");
+                var sw = new Stopwatch();
+                sw.Start();
                 var audioBytes = await _extratorService.ExtrarAudio(file);
+                sw.Stop();
+                Console.WriteLine("Tempo de execussão da extração: " + sw.ElapsedMilliseconds);
                 return File(audioBytes, "audio/mpeg", "audio.mp3");
             }
             catch (Exception ex)

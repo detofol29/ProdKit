@@ -11,9 +11,6 @@ namespace ProdKit.Application.Servicos
         const string MensagemArquivoInvalido = "Arquivo inválido";
         const string FormatoMp4 = ".mp4";
         const string FormatoMp3 = ".mp3";
-        //const string PastaFfmpeg = "ffmpeg";
-        //const string ExecutavelFfmpeg = "ffmpeg.exe";
-        //const string MensagemFfmpegNaoEncontrado = "FFmpeg não encontrado!";
         const string MensagemErroNaConversao = "Erro na conversão com FFmpeg: ";
 
         public async Task<byte[]> ExtrarAudio(IFormFile file)
@@ -29,22 +26,7 @@ namespace ProdKit.Application.Servicos
                 await file.CopyToAsync(stream);
             }
 
-            //var ffmpegPath = Path.Combine(Directory.GetCurrentDirectory(), PastaFfmpeg, ExecutavelFfmpeg);
-
-            //if (!File.Exists(ffmpegPath))
-            //    throw new FileNotFoundException(MensagemFfmpegNaoEncontrado);
-
-            //var startInfo = new ProcessStartInfo
-            //{
-            //    FileName = ffmpegPath,
-            //    Arguments = $"-i \"{tempMp4}\" -vn -ar 44100 -ac 2 -b:a 192k \"{tempMp3}\" -y",
-            //    RedirectStandardError = true,
-            //    RedirectStandardOutput = true,
-            //    UseShellExecute = false,
-            //    CreateNoWindow = true
-            //};
-
-            var ffmpegPath = "ffmpeg"; // usa diretamente o nome, assumindo que está no PATH
+            var ffmpegPath = "ffmpeg";
 
             var startInfo = new ProcessStartInfo
             {
